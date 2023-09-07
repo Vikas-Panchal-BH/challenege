@@ -5,7 +5,7 @@ import { Box, Button, Grid, Paper, Typography } from '@mui/material';
 import Model from '../component/Model';
 import { useSelector } from 'react-redux';
 import { deleteUserService, getUserService } from '../redux/services/userServices';
-import ModelType from '../component/ModelType';
+
 import _ from "lodash";
 
 const User = () => {
@@ -23,10 +23,7 @@ const User = () => {
     const del = (id) => {
         deleteUserService(id)
     }
-    const user = () => {
 
-
-    }
     return (
         <Box>
             <Grid container justifyContent="flex-end" marginTop="1%" marginRight="1%">

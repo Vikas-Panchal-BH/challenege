@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 import _ from "lodash";
 import { useNavigate } from 'react-router-dom';
-import ModelType from './ModelType';
+
 
 
 

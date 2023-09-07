@@ -1,4 +1,4 @@
-import { setUser, createUser, deleteUser, editUser, createUserType } from "../../redux/slice/userSlice";
+import { setUser, createUser, deleteUser, editUser, createUserType, deleteType, editType } from "../../redux/slice/userSlice";
 import { store } from "../../redux/store";
 
 export const userService = (data) => {
@@ -24,4 +24,12 @@ export const editUserService = (data, id) => {
 };
 export const typeUserService = (data) => {
     store.dispatch(createUserType(data))
+};
+export const deleteTypeService = (id) => {
+
+    store.dispatch(deleteType(id))
+};
+export const editTypeService = (data, id) => {
+    let data1 = { id, data }
+    store.dispatch(editType(data1))
 };

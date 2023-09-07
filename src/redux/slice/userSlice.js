@@ -36,7 +36,6 @@ const userSlice = createSlice({
 
         setUser: (state, action) => {
 
-            // console.log("line 38", action.payload);
 
 
         },
@@ -63,7 +62,24 @@ const userSlice = createSlice({
             state.type = usersF;
             console.log("line 61", action.payload);
         },
+        deleteType: (state, action) => {
+            console.log(action.payload)
 
+            let indexToDelete = action.payload;
+
+            if (indexToDelete >= 0 && indexToDelete < state.type.length) {
+                state.type.splice(indexToDelete, 1);
+            }
+        },
+        editType: (state, action) => {
+            // console.log("line no. 75", action.payload?.data?.type)
+            const data = action.payload?.data?.type;
+            const id = action.payload?.id;
+            const updatedType = [...state.type];
+            updatedType[id] = data;
+            state.type = updatedType;
+
+        }
     }
 })
 
@@ -72,7 +88,9 @@ export const {
     createUser,
     deleteUser,
     editUser,
-    createUserType
+    createUserType,
+    deleteType,
+    editType
 
 
 } = userSlice.actions;

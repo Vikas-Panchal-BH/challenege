@@ -1,17 +1,22 @@
-import { Box, Grid, Paper, Typography } from '@mui/material'
+import { Box, Button, Grid, Paper, Typography } from '@mui/material'
 import React from 'react'
 
-import ModelType from '../component/ModelType'
+
 import { useSelector } from 'react-redux'
+import { deleteTypeService } from '../redux/services/userServices'
+import ModelType from '../component/ModelType'
 
 const Type = () => {
-    const types=useSelector((state)=>state?.user)
-      console.log(types?.type)
+    const types = useSelector((state) => state?.user)
+    console.log(types.type)
+    const del = (id) => {
+        deleteTypeService(id)
+    }
     return (
         <Box>
             <Grid container justifyContent="flex-end" marginTop="1%" marginRight="1%">
                 <Grid item>
-                    <ModelType />
+                    <ModelType create={true} />
                 </Grid>
             </Grid>
             <Box mt={"3%"}>
@@ -21,11 +26,10 @@ const Type = () => {
 
                             < Grid component={Paper} data xs={4} key={index} >
                                 <Typography mt={2} ml={3}>{"Type: "}{data}</Typography>
-{/*                            
+                                <Button> <ModelType editid={index} data={data} /></Button>
                                 <Button type="submit"
-
                                     variant="contained"
-                                    onClick={() => del(data?.id)} >Delete</Button> */} */}
+                                    onClick={() => del(index)} >Delete</Button>
                             </Grid>
                         )
 
