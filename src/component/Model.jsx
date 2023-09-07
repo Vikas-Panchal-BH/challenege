@@ -26,6 +26,7 @@ import MenuItem from '@mui/material/MenuItem';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Select from '@mui/material/Select';
 import { useTheme } from '@emotion/react';
+import {useEffect} from "react";
 const defaultTheme = createTheme();
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -61,10 +62,11 @@ const schema = yup.object().shape({
 });
 
 export default function Model({ editid, add, data }) {
+
     const [personName, setPersonName] = React.useState([]);
     const [open, setOpen] = React.useState(false);
     const [passwordVisible, setPasswordVisible] = React.useState(false);
-    const { handleSubmit, control, formState: { errors } } = useForm({
+    const { handleSubmit, reset,control, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
     });
     const handleClickOpen = () => {
@@ -107,6 +109,9 @@ export default function Model({ editid, add, data }) {
             typeof value === 'string' ? value.split(',') : value
         );
     };
+    useEffect(()=>{
+     reset(data);
+    },[data])
  
     return (
         <div>
