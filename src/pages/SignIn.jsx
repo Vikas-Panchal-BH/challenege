@@ -14,7 +14,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { signInService } from '../redux/services/authServices';
 import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import {Navigate, useNavigate} from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -35,18 +35,16 @@ const schema = yup.object().shape({
 });
 
 export default function SignIn() {
+    const navigate = useNavigate();
     const [passwordVisible, setPasswordVisible] = React.useState(false);
     const { handleSubmit, control, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
     });
-    const currentUser = useSelector((state) => state.auth?.currentUser)
-    console.log("current", currentUser)
-    // if (currentUser) {
+    const currentUser = useSelector((state) => state.auth?.currentUser);
 
-    //     return <Navigate to="dashboard" />
-    // }
     const onSubmit = (data) => {
-        signInService(data);
+        const valid = signInService(data);
+        valid && navigate("/dashboard");
     };
 
     return (

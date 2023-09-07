@@ -38,18 +38,6 @@ const MenuProps = {
     },
 };
 
-// const names = [
-//     'Van Henry',
-//     'April Tucker',
-//     'Ralph Hubbard',
-//     'Omar Alexander',
-//     'Carlos Abbott',
-//     'Miriam Wagner',
-//     'Bradley Wilkerson',
-//     'Virginia Andrews',
-//     'Kelly Snyder',
-// ];
-
 function getStyles(name, personName, theme) {
     return {
         fontWeight:
@@ -180,9 +168,8 @@ export default function Model({ editid, add, data }) {
                                             select
 
                                         >
-                                            <MenuItem value={0}>Supper Admin</MenuItem>
                                             <MenuItem value={1}>Admin</MenuItem>
-                                            <MenuItem value={2}>Basic</MenuItem>
+                                            <MenuItem value={2}>User</MenuItem>
                                         </TextField>
                                     )}
                                 />
@@ -217,40 +204,8 @@ export default function Model({ editid, add, data }) {
                                         />
                                     )}
                                 />
-
-                                {/* <Controller
-                                    name="name"
-                                    control={control}
-                                    defaultValue={[]}
-                                    render={({ field }) => (
-                                        <TextField
-                                            {...field}
-                                            margin="normal"
-                                            required
-                                            fullWidth
-                                            label="Name"
-                                            error={!!errors?.name}
-                                            helperText={errors?.name?.message}
-                                            select
-                                            SelectProps={{
-                                                multiple: true,
-                                                renderValue: (selected) => selected.join(', '),
-                                            }}
-                                        >
-                                            {userTypes?.type?.map((name) => (
-                                                <MenuItem
-                                                    key={name}
-                                                    value={name}
-                                                    style={getStyles(name, field.value, theme)}
-                                                >
-                                                    {name}
-                                                </MenuItem>
-                                            ))}
-                                        </TextField>
-                                    )}
-                                /> */}
                                 <FormControl sx={{ m: 1, width: 300 }}>
-                                    <InputLabel id="demo-multiple-name-label">Name</InputLabel>
+                                    <InputLabel id="demo-multiple-name-label">Assign Type to User</InputLabel>
                                     <Select
                                         labelId="demo-multiple-name-label"
                                         id="demo-multiple-name"
