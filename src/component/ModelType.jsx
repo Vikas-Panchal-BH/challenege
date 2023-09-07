@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -27,7 +27,7 @@ export default function ModelType() {
     const [open, setOpen] = useState(false);
 
     // React Hook Form setup
-    const { handleSubmit, control, formState: { errors } } = useForm({
+    const { handleSubmit, reset,control, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
     });
 
@@ -37,6 +37,7 @@ export default function ModelType() {
 
     const handleClose = () => {
         setOpen(false);
+        reset();
     };
 
     const onSubmit = (data) => {
@@ -46,7 +47,6 @@ export default function ModelType() {
         typeUserService(addemp)
         handleClose()
     }
-   
 
     return (
         <div>
