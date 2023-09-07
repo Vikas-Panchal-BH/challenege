@@ -26,7 +26,7 @@ import MenuItem from '@mui/material/MenuItem';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Select from '@mui/material/Select';
 import { useTheme } from '@emotion/react';
-import {useEffect} from "react";
+import { useEffect } from "react";
 const defaultTheme = createTheme();
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -48,6 +48,7 @@ function getStyles(name, personName, theme) {
     };
 }
 const schema = yup.object().shape({
+    usernane: yup.string().required('Username is Required!'),
     email: yup.string().required('Email is Required!').email('Please Enter Valid Email!'),
     password: yup
         .string()
@@ -66,7 +67,7 @@ export default function Model({ editid, add, data }) {
     const [personName, setPersonName] = React.useState([]);
     const [open, setOpen] = React.useState(false);
     const [passwordVisible, setPasswordVisible] = React.useState(false);
-    const { handleSubmit, reset,control, formState: { errors } } = useForm({
+    const { handleSubmit, reset, control, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
     });
     const handleClickOpen = () => {
@@ -80,6 +81,7 @@ export default function Model({ editid, add, data }) {
     const onSubmit = (data) => {
         const addemp = {
             id: Math.random(),
+            username: data?.username,
             email: data?.email,
             password: data?.password,
             role: +(data?.role),
@@ -92,7 +94,7 @@ export default function Model({ editid, add, data }) {
             role: +(data?.role),
             type: personName
         }
-        console.log("asa",addemp)
+        console.log("asa", addemp)
         add ? userService(addemp) : editUserService(editemp, editid)
         handleClose()
     }
@@ -102,7 +104,7 @@ export default function Model({ editid, add, data }) {
 
 
     const handleChange = (event) => {
-        console.log("event",event);
+        console.log("event", event);
         const {
             target: { value },
         } = event;
@@ -111,12 +113,12 @@ export default function Model({ editid, add, data }) {
             typeof value === 'string' ? value.split(',') : value
         );
     };
-    console.log("data",data,personName);
-    useEffect(()=>{
-     reset(data);
-     setPersonName(data?.type || [])
-    },[data])
- 
+    console.log("data", data, personName);
+    useEffect(() => {
+        reset(data);
+        setPersonName(data?.type || [])
+    }, [data])
+
     return (
         <div>
             <Button variant="outlined" onClick={handleClickOpen}>
@@ -141,7 +143,24 @@ export default function Model({ editid, add, data }) {
                                 {add ? "Create User" : "Edit User"}
                             </Typography>
                             <form onSubmit={handleSubmit(onSubmit)}>
-
+                                <Controller
+                                    name="username"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <TextField
+                                            {...field}
+                                            margin="normal"
+                                            required
+                                            fullWidth
+                                            label="Username"
+                                            type='text'
+                                            autoFocus
+                                            autoComplete="off"
+                                            error={!!errors.email}
+                                            helperText={errors.email?.message}
+                                        />
+                                    )}
+                                />
                                 <Controller
                                     name="email"
                                     control={control}

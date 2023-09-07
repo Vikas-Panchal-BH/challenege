@@ -4,6 +4,7 @@ const initialState = {
     users: [
         {
             "id": 1,
+            "username": "superadmin",
             "email": "superadmin@gmail.com",
             "password": "Brainerhub@123",
             "role": 0,
@@ -11,6 +12,7 @@ const initialState = {
         },
         {
             "id": 2,
+            "username": "admin",
             "email": "admin@gmail.com",
             "password": "Brainerhub@123",
             "role": 1,
@@ -18,7 +20,8 @@ const initialState = {
         },
         {
             "id": 3,
-            "email": "basic@gmail.com",
+            "username": "user",
+            "email": "user@gmail.com",
             "password": "Brainerhub@123",
             "role": 2,
             "type": [],
