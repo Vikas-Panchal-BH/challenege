@@ -58,7 +58,7 @@ const schema = yup.object().shape({
             'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character'
         ),
     role: yup.string().notOneOf(['Role']).required("Role is required"),
-    type: yup.string(),
+    type: yup.mixed(),
 });
 
 export default function Model({ editid, add, data }) {
@@ -75,6 +75,7 @@ export default function Model({ editid, add, data }) {
 
     const handleClose = () => {
         setOpen(false);
+        reset({});
     };
     const onSubmit = (data) => {
         const addemp = {
@@ -91,7 +92,7 @@ export default function Model({ editid, add, data }) {
             role: +(data?.role),
             type: personName
         }
-        console.log(addemp)
+        console.log("asa",addemp)
         add ? userService(addemp) : editUserService(editemp, editid)
         handleClose()
     }
@@ -101,6 +102,7 @@ export default function Model({ editid, add, data }) {
 
 
     const handleChange = (event) => {
+        console.log("event",event);
         const {
             target: { value },
         } = event;
@@ -109,8 +111,10 @@ export default function Model({ editid, add, data }) {
             typeof value === 'string' ? value.split(',') : value
         );
     };
+    console.log("data",data,personName);
     useEffect(()=>{
      reset(data);
+     setPersonName(data?.type || [])
     },[data])
  
     return (
