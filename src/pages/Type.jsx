@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux'
 
 const Type = () => {
     const types=useSelector((state)=>state?.user)
-      console.log(types?.type)
     return (
         <Box>
             <Grid container justifyContent="flex-end" marginTop="1%" marginRight="1%">
@@ -19,13 +18,8 @@ const Type = () => {
                     {
                         types?.type?.map((data, index) =>
 
-                            < Grid component={Paper} data xs={4} key={index} >
+                            <Grid component={Paper} data xs={4} key={index} >
                                 <Typography mt={2} ml={3}>{"Type: "}{data}</Typography>
-{/*                            
-                                <Button type="submit"
-
-                                    variant="contained"
-                                    onClick={() => del(data?.id)} >Delete</Button> */} */}
                             </Grid>
                         )
 

@@ -48,7 +48,7 @@ function getStyles(name, personName, theme) {
     };
 }
 const schema = yup.object().shape({
-    usernane: yup.string().required('Username is Required!'),
+    username: yup.string().required('Username is Required!'),
     email: yup.string().required('Email is Required!').email('Please Enter Valid Email!'),
     password: yup
         .string()
@@ -89,12 +89,12 @@ export default function Model({ editid, add, data }) {
         }
         const editemp = {
             id: editid,
+            username: data?.username,
             email: data?.email,
             password: data?.password,
             role: +(data?.role),
             type: personName
         }
-        console.log("asa", addemp)
         add ? userService(addemp) : editUserService(editemp, editid)
         handleClose()
     }
@@ -104,7 +104,6 @@ export default function Model({ editid, add, data }) {
 
 
     const handleChange = (event) => {
-        console.log("event", event);
         const {
             target: { value },
         } = event;
@@ -113,7 +112,6 @@ export default function Model({ editid, add, data }) {
             typeof value === 'string' ? value.split(',') : value
         );
     };
-    console.log("data", data, personName);
     useEffect(() => {
         reset(data);
         setPersonName(data?.type || [])

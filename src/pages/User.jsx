@@ -5,13 +5,12 @@ import { Box, Button, Grid, Paper, Typography } from '@mui/material';
 import Model from '../component/Model';
 import { useSelector } from 'react-redux';
 import { deleteUserService, getUserService } from '../redux/services/userServices';
-import ModelType from '../component/ModelType';
 import _ from "lodash";
+
 
 const User = () => {
     const datas = useSelector((state) => state.user);
     const users = useSelector((state) => state?.auth)
-    console.log("users", users)
 
     const getUser = () => {
         getUserService()
@@ -19,15 +18,11 @@ const User = () => {
     useEffect(() => {
         getUser()
     }, [])
-    console.log(datas)
     const del = (id) => {
         deleteUserService(id)
     }
-    const user = () => {
-
-
-    }
     return (
+        <>
         <Box>
             <Grid container justifyContent="flex-end" marginTop="1%" marginRight="1%">
                 <Grid item>
@@ -39,7 +34,7 @@ const User = () => {
             <Box mt={"3%"}>
                 <Grid gap={"1rem"} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                     {
-                        datas?.users?.map((data, index) =>
+                        datas?.users?.filter(data => data.role != 0).map((data, index) =>
 
                             < Grid component={Paper} data xs={4} key={index} >
                                 <Typography mt={2} ml={3}>{"Username: "}{data?.username}</Typography>
@@ -59,6 +54,7 @@ const User = () => {
             </Box>
 
         </Box >
+        </>
 
     )
 }

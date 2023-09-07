@@ -1,34 +1,18 @@
 
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import {Navigate, Outlet} from 'react-router-dom';
+import Header from "../component/Header";
 
 
-const PrivateRoutes = () => {
+const PrivateRoutes = ({children}) => {
+    const user = useSelector((store) => store.auth?.currentUser);
 
-
-    const token = useSelector((store) => store.auth?.currentUser);
-    console.log("token", token.length)
-
-    if (!token) {
-        toast({
-            title: 'Please Login First.',
-            description: "Please Login First.",
-            status: 'warning',
-            duration: 1000,
-            isClosable: true,
-        })
-        console.log("jii")
+    if (Object.keys(user)?.length > 0) {
+        return<><Header/> {children}</>
     } else {
-
         return <Navigate to="/" />
-
     }
-
-
-
-
 };
 
 export default PrivateRoutes;
