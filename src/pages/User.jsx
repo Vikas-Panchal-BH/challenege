@@ -48,6 +48,9 @@ const User = () => {
 
     return (
         <>
+           <Box mt={"1%"}>
+                <Typography variant="h3" color={"gray"} textAlign={"center"}>Users</Typography>
+            </Box>
             <Box>
                 <Grid container justifyContent="flex-end" marginTop="1%" marginRight="1%">
                     <Grid item>

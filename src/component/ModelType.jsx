@@ -14,20 +14,20 @@ import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import DialogActions from '@mui/material/DialogActions';
 import { editTypeService, typeUserService } from '../redux/services/userServices';
-
-// Create a Yup schema for validation
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import AddIcon from '@mui/icons-material/Add';
 const schema = yup.object().shape({
     type: yup.string().required("Designation is required"),
 });
 
-// Create a default Material-UI theme
+
 const defaultTheme = createTheme();
 
 export default function ModelType({ addType, id }) {
 
     const [open, setOpen] = useState(false);
 
-    // React Hook Form setup
+
     const { handleSubmit, reset, control, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
     });
@@ -54,13 +54,18 @@ export default function ModelType({ addType, id }) {
         handleClose()
     }
     useEffect(() => {
-        reset({type:addType})
+        reset({ type: addType })
     }, [addType]);
 
     return (
         <div>
-            <Button variant="outlined" onClick={handleClickOpen}>
-                {!addType ? "Create Type" : "Edit Type"}
+            <Button variant="outlined" onClick={handleClickOpen} style={{
+                backgroundColor: addType ? 'blue' : 'green',
+                color: 'white',
+                border: 'none',
+            }}>
+                {/* {!addType ? "Create Type" : "Edit Type"} */}
+                {addType ? <ModeEditIcon /> : <AddIcon />}
             </Button>
             <Dialog open={open} onClose={handleClose}>
                 <ThemeProvider theme={defaultTheme}>
@@ -75,7 +80,7 @@ export default function ModelType({ addType, id }) {
                             }}
                         >
                             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                                <LockOutlinedIcon />
+                                {addType ? <ModeEditIcon /> : <AddIcon />}
                             </Avatar>
                             <Typography component="h1" variant="h5">
                                 {!addType ? "Create Type" : "Edit Type"}
