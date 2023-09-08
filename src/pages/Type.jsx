@@ -9,7 +9,7 @@ import { deletTypeService } from '../redux/services/userServices'
 
 const Type = () => {
     const types = useSelector((state) => state?.user)
-
+    const { isSuperAdmin } = useSelector((state) => state?.auth);
     const dele = (id) => {
         deletTypeService(id)
     }
@@ -17,7 +17,7 @@ const Type = () => {
         <Box>
             <Grid container justifyContent="flex-end" marginTop="1%" marginRight="1%">
                 <Grid item>
-                    <ModelType  />
+                    <ModelType />
                 </Grid>
             </Grid>
             <Box mt={"3%"}>
@@ -28,7 +28,8 @@ const Type = () => {
                             <Grid component={Paper} data xs={4} key={index} >
                                 <Typography mt={2} ml={3}>{"Type: "}{data?.type}</Typography>
                                 <ModelType id={data?.id} addType={data?.type} />
-                                <Button onClick={() => dele(data?.id)}>Delete</Button>
+                                {isSuperAdmin && <Button onClick={() => dele(data?.id)}>Delete</Button>}
+
                             </Grid>
                         )
 
