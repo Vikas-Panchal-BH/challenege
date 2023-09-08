@@ -17,7 +17,7 @@ const Type = () => {
         <Box>
             <Grid container justifyContent="flex-end" marginTop="1%" marginRight="1%">
                 <Grid item>
-                    <ModelType addType={true} />
+                    <ModelType  />
                 </Grid>
             </Grid>
             <Box mt={"3%"}>
@@ -27,7 +27,7 @@ const Type = () => {
 
                             <Grid component={Paper} data xs={4} key={index} >
                                 <Typography mt={2} ml={3}>{"Type: "}{data?.type}</Typography>
-                                <ModelType id={data?.id} />
+                                <ModelType id={data?.id} addType={data?.type} />
                                 <Button onClick={() => dele(data?.id)}>Delete</Button>
                             </Grid>
                         )

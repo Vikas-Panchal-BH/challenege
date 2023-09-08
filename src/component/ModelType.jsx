@@ -43,21 +43,24 @@ export default function ModelType({ addType, id }) {
 
     const onSubmit = (data) => {
         const addemp = {
-            id: Math.random(),
+            id: Math.floor(Math.random() * 100000),
             type: data?.type
         }
         const editemp = {
             type: data?.type
         }
 
-        addType ? typeUserService(addemp) : editTypeService(editemp, id)
+        !addType ? typeUserService(addemp) : editTypeService(editemp, id)
         handleClose()
     }
+    useEffect(() => {
+        reset({type:addType})
+    }, [addType]);
 
     return (
         <div>
             <Button variant="outlined" onClick={handleClickOpen}>
-                {addType ? "Create Type" : "Edit Type"}
+                {!addType ? "Create Type" : "Edit Type"}
             </Button>
             <Dialog open={open} onClose={handleClose}>
                 <ThemeProvider theme={defaultTheme}>
@@ -75,7 +78,7 @@ export default function ModelType({ addType, id }) {
                                 <LockOutlinedIcon />
                             </Avatar>
                             <Typography component="h1" variant="h5">
-                                {addType ? "Create Type" : "Edit Type"}
+                                {!addType ? "Create Type" : "Edit Type"}
                             </Typography>
                             <form onSubmit={handleSubmit(onSubmit)}>
                                 <Controller
@@ -109,7 +112,7 @@ export default function ModelType({ addType, id }) {
                                         variant="contained"
                                         sx={{ mt: 3, mb: 2 }}
                                     >
-                                        {addType ? "AddType" : "EditType"}
+                                        {!addType ? "AddType" : "EditType"}
                                     </Button>
                                 </DialogActions>
                             </form>

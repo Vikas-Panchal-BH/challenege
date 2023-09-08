@@ -18,6 +18,12 @@ const bull = (
 
 export default function Dashboard() {
   const currentUser = useSelector((state) => state.auth?.currentUser);
+  const types= useSelector((state) => state.user.type);
+  function getUserTypes(userTypes) {
+    const filteredTypes = types?.filter(typeObj => userTypes?.includes(typeObj?.id));
+    const result = filteredTypes?.map(typeObj => typeObj?.type);
+    return result?.join(',');
+  }
   const getRoleName = (role) => {
     switch (role) {
       case 0:
@@ -25,7 +31,7 @@ export default function Dashboard() {
       case 1:
         return 'Admin';
       case 2:
-        return 'Users';
+        return 'User';
       default:
         return '';
     }
@@ -43,7 +49,7 @@ export default function Dashboard() {
           {"Role:"} {getRoleName(currentUser?.role)}
         </Typography>
         <Typography variant="h5" >
-          {"Type:"}{currentUser?.type}
+          {"Type:"}{getUserTypes(currentUser?.type)}
         </Typography>
       </CardContent>
 

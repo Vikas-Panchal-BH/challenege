@@ -12,10 +12,6 @@ const initialState = {
         }
     ],
     type: [
-        {
-            id: 1,
-            type: "vivek"
-        }
     ]
 
 }
