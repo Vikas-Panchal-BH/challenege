@@ -18,7 +18,6 @@ const bull = (
 
 export default function Dashboard() {
   const currentUser = useSelector((state) => state.auth?.currentUser);
-  console.log(currentUser)
   const getRoleName = (role) => {
     switch (role) {
       case 0:

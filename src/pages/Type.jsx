@@ -9,7 +9,7 @@ import { deletTypeService } from '../redux/services/userServices'
 
 const Type = () => {
     const types = useSelector((state) => state?.user)
-    console.log("types", types?.type)
+
     const dele = (id) => {
         deletTypeService(id)
     }

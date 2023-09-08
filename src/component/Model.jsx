@@ -100,7 +100,7 @@ export default function Model({ editid, add, data }) {
     }
 
     const userTypes = useSelector((state) => state?.user);
-    console.log("userTypes", userTypes)
+  
     const theme = useTheme();
 
 

@@ -24,7 +24,7 @@ const schema = yup.object().shape({
 const defaultTheme = createTheme();
 
 export default function ModelType({ addType, id }) {
-    console.log(id)
+
     const [open, setOpen] = useState(false);
 
     // React Hook Form setup
@@ -46,8 +46,11 @@ export default function ModelType({ addType, id }) {
             id: Math.random(),
             type: data?.type
         }
+        const editemp = {
+            type: data?.type
+        }
 
-        addType ? typeUserService(addemp) : editTypeService(addemp, id)
+        addType ? typeUserService(addemp) : editTypeService(editemp, id)
         handleClose()
     }
 
