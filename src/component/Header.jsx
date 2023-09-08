@@ -13,7 +13,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import {Link, Outlet, useLocation, useNavigate} from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { signOutService } from '../redux/services/authServices';
 import { useSelector } from 'react-redux';
@@ -59,6 +59,7 @@ const Header = () => {
                 : [];
 
     return (
+        <>
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
@@ -177,6 +178,8 @@ const Header = () => {
                 </Toolbar>
             </Container>
         </AppBar>
+            <Outlet/>
+        </>
     );
 };
 

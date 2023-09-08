@@ -16,16 +16,14 @@ const AllRoutes = () => {
             <Routes>
                 <Route path='*' element={<SignIn />} />
                 <Route path='/' element={<SignIn />} />
+                <Route element={<PrivateRoutes />}>
+                    <Route element={<Header />}>
+                        <Route path="/dashboard"  element={<Dashboard />}/>
+                        <Route path="/user"  element={<User />}/>
+                        <Route path="/type"  element={<Type />}/>
+                    </Route>
+                </Route>
 
-                        <Route path="/dashboard" element={ <PrivateRoutes >
-                            <Dashboard />
-                        </PrivateRoutes>} />
-                        <Route path='/user' element={ <PrivateRoutes >
-                            <User />
-                        </PrivateRoutes>} />
-                        <Route path='/type' element={ <PrivateRoutes >
-                            <Type />
-                        </PrivateRoutes>} />
 
 
             </Routes>
