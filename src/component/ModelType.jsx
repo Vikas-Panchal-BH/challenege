@@ -59,12 +59,12 @@ export default function ModelType({ addType, id }) {
 
     return (
         <div>
-            <Button variant="outlined" onClick={handleClickOpen} style={{
+            <Button variant="contained" onClick={handleClickOpen} style={{
                 backgroundColor: addType ? 'blue' : 'green',
                 color: 'white',
                 border: 'none',
+                marginRight:"50px"
             }}>
-                {/* {!addType ? "Create Type" : "Edit Type"} */}
                 {addType ? <ModeEditIcon /> : <AddIcon />}
             </Button>
             <Dialog open={open} onClose={handleClose}>

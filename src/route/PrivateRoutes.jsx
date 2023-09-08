@@ -9,7 +9,7 @@ const PrivateRoutes = ({children}) => {
     const user = useSelector((store) => store.auth?.currentUser);
 
     if (Object.keys(user)?.length > 0) {
-        return<><Header/> {children}</>
+        return<><Outlet /></>
     } else {
         return <Navigate to="/" />
     }
