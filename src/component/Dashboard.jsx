@@ -18,7 +18,9 @@ const bull = (
 
 export default function Dashboard() {
   const currentUser = useSelector((state) => state.auth?.currentUser);
-  const types= useSelector((state) => state.user.type);
+  const { isAdmin, isBasic } = useSelector((state) => state?.auth);
+
+  const types = useSelector((state) => state.user.type);
   function getUserTypes(userTypes) {
     const filteredTypes = types?.filter(typeObj => userTypes?.includes(typeObj?.id));
     const result = filteredTypes?.map(typeObj => typeObj?.type);
@@ -48,9 +50,10 @@ export default function Dashboard() {
         <Typography variant="h5">
           {"Role:"} {getRoleName(currentUser?.role)}
         </Typography>
-        <Typography variant="h5" >
+        {(isAdmin || isBasic) && <Typography variant="h5" >
           {"Type:"}{getUserTypes(currentUser?.type)}
-        </Typography>
+        </Typography>}
+
       </CardContent>
 
     </Card>

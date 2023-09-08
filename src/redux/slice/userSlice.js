@@ -6,10 +6,27 @@ const initialState = {
             "id": 1,
             "username": "superadmin",
             "email": "superadmin@gmail.com",
-            "password": "Brainerhub@123",
+            "password": "Superadmin@123",
             "role": 0,
             "type": [],
-        }
+        },
+        {
+            "id": 2,
+            "username": "admin",
+            "email": "admin@gmail.com",
+            "password": "Admin@123",
+            "role": 1,
+            "type": [],
+        },
+        {
+            "id": 3,
+            "username": "user123",
+            "email": "user@gmail.com",
+            "password": "User@123",
+            "role": 2,
+            "type": [],
+        },
+
     ],
     type: [
     ]

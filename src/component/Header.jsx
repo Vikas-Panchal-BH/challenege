@@ -1,3 +1,4 @@
+
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -12,25 +13,26 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import {Link, useNavigate} from "react-router-dom";
-import {toast} from "react-toastify";
-import {signOutService} from "../redux/services/authServices";
-
-const pages = ['Dashboard','User','Type',];
-
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { signOutService } from '../redux/services/authServices';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
+    const { isAdmin, isBasic, isSuperAdmin } = useSelector((state) => state?.auth);
     const navigate = useNavigate();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+
     const handleLogout = () => {
         signOutService();
-        navigate("/");
-
+        navigate('/');
     };
+
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
+
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
     };
@@ -42,6 +44,19 @@ const Header = () => {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+
+    const adminLinks = ['Dashboard', 'User', 'Type'];
+    const basicUserLinks = ['Dashboard'];
+    const superAdminLinks = ['Dashboard', 'User', 'Type'];
+
+    const userLinks = isAdmin
+        ? adminLinks
+        : isBasic
+            ? basicUserLinks
+            : isSuperAdmin
+                ? superAdminLinks
+                : [];
 
     return (
         <AppBar position="static">
@@ -95,14 +110,9 @@ const Header = () => {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {pages.map((page) => (
-                                <MenuItem sx={{ my: 2, color: 'white', display: 'block' }}>
-                                    <Link to={`/${page}`}
-
-                                          key={page}
-                                          onClick={handleCloseNavMenu}
-
-                                    >
+                            {userLinks.map((page) => (
+                                <MenuItem sx={{ my: 2, color: 'white', display: 'block' }} key={page}>
+                                    <Link to={`/${page}`} onClick={handleCloseNavMenu}>
                                         {page}
                                     </Link>
                                 </MenuItem>
@@ -129,21 +139,14 @@ const Header = () => {
                         LOGO
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-
-                        {pages.map((page) => (
-                            <MenuItem sx={{ my: 2, color: 'white', display: 'block' }}>
-                            <Link to={`/${page}`}
-
-                                key={page}
-                                onClick={handleCloseNavMenu}
-
-                            >
-                                {page}
-                            </Link>
+                        {userLinks.map((page) => (
+                            <MenuItem sx={{ my: 2, color: 'white', display: 'block' }} key={page}>
+                                <Link to={`/${page}`} onClick={handleCloseNavMenu}>
+                                    {page}
+                                </Link>
                             </MenuItem>
                         ))}
                     </Box>
-
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -166,16 +169,16 @@ const Header = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-
-                                <MenuItem  onClick={handleLogout}>
-                                    <Typography textAlign="center">Logout</Typography>
-                                </MenuItem>
-
+                            <MenuItem onClick={handleLogout}>
+                                <Typography textAlign="center">Logout</Typography>
+                            </MenuItem>
                         </Menu>
                     </Box>
                 </Toolbar>
             </Container>
         </AppBar>
     );
-}
+};
+
 export default Header;
+
