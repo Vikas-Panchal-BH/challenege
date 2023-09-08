@@ -22,19 +22,22 @@ const Type = () => {
     }
     return (
         <Box>
+            <Box mt={"1%"}>
+                <Typography variant="h3" color={"gray"} textAlign={"center"}>Types</Typography>
+            </Box>
             <Grid container justifyContent="flex-end" marginTop="1%" marginRight="1%">
                 <Grid item>
                     <ModelType />
                 </Grid>
             </Grid>
-            <Box mt={"2%"}>
+            <Box mt={"3%"}>
                 <Grid gap={"1rem"} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                     {
                         types?.type?.map((data, index) =>
 
-                            <Grid item xs={2} key={index} data >
+                            <Grid item xs={4} key={index} data >
                                 <Item>
-                                    <Typography color={"black"} mt={2} ml={3}>{"Type: "}{data?.type}</Typography>
+                                    <Typography mt={2} ml={3}>{"Type: "}{data?.type}</Typography>
                                     <Button>
                                         <ModelType id={data?.id} addType={data?.type} />
                                     </Button>

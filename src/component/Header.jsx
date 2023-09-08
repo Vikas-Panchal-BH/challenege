@@ -19,7 +19,7 @@ import { signOutService } from '../redux/services/authServices';
 import { useSelector } from 'react-redux';
 
 const Header = () => {
-    const { isAdmin, isBasic, isSuperAdmin } = useSelector((state) => state?.auth);
+    const { isAdmin, isBasic, isSuperAdmin, currentUser } = useSelector((state) => state?.auth);
     const navigate = useNavigate();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -150,7 +150,7 @@ const Header = () => {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                <Avatar alt={currentUser?.username} src="/static/images/avatar/2.jpg" />
                             </IconButton>
                         </Tooltip>
                         <Menu

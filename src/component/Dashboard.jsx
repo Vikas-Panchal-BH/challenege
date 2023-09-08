@@ -39,7 +39,11 @@ export default function Dashboard() {
     }
   };
   return (
-    <Card sx={{ minWidth: 275 }}>
+    <>
+      <Box mt={"1%"}>
+                <Typography variant="h3" color={"gray"} textAlign={"center"}>Dashboard</Typography>
+            </Box>
+            <Card sx={{ minWidth: 275 }}>
       <CardContent>
         <Typography variant="h5" >
           {"UserName:"} {_.startCase(_.toLower(currentUser?.username))}
@@ -57,5 +61,7 @@ export default function Dashboard() {
       </CardContent>
 
     </Card>
+    </>
+
   );
 }
