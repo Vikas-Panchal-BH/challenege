@@ -3,15 +3,21 @@ import React from 'react'
 
 import ModelType from '../component/ModelType'
 import { useSelector } from 'react-redux'
+import { Button } from '@mui/base'
+import { deletTypeService } from '../redux/services/userServices'
+
 
 const Type = () => {
-    const types=useSelector((state)=>state?.user)
-      console.log(types?.type)
+    const types = useSelector((state) => state?.user)
+    console.log("types", types?.type)
+    const dele = (id) => {
+        deletTypeService(id)
+    }
     return (
         <Box>
             <Grid container justifyContent="flex-end" marginTop="1%" marginRight="1%">
                 <Grid item>
-                    <ModelType />
+                    <ModelType addType={true} />
                 </Grid>
             </Grid>
             <Box mt={"3%"}>
@@ -19,13 +25,10 @@ const Type = () => {
                     {
                         types?.type?.map((data, index) =>
 
-                            < Grid component={Paper} data xs={4} key={index} >
-                                <Typography mt={2} ml={3}>{"Type: "}{data}</Typography>
-{/*                            
-                                <Button type="submit"
-
-                                    variant="contained"
-                                    onClick={() => del(data?.id)} >Delete</Button> */} */}
+                            <Grid component={Paper} data xs={4} key={index} >
+                                <Typography mt={2} ml={3}>{"Type: "}{data?.type}</Typography>
+                                <ModelType id={data?.id} />
+                                <Button onClick={() => dele(data?.id)}>Delete</Button>
                             </Grid>
                         )
 

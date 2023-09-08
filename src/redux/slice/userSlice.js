@@ -9,25 +9,14 @@ const initialState = {
             "password": "Brainerhub@123",
             "role": 0,
             "type": [],
-        },
-        {
-            "id": 2,
-            "username": "admin",
-            "email": "admin@gmail.com",
-            "password": "Brainerhub@123",
-            "role": 1,
-            "type": [],
-        },
-        {
-            "id": 3,
-            "username": "user",
-            "email": "user@gmail.com",
-            "password": "Brainerhub@123",
-            "role": 2,
-            "type": [],
         }
     ],
-    type: []
+    type: [
+        {
+            id: 1,
+            type: "vivek"
+        }
+    ]
 
 }
 const userSlice = createSlice({
@@ -59,9 +48,20 @@ const userSlice = createSlice({
         },
         createUserType: (state, action) => {
             const usersF = [...state.type];
-            usersF.push(String(action.payload?.type));
+            usersF.push(action.payload);
             state.type = usersF;
             console.log("line 61", action.payload);
+        },
+        deleteType: (state, action) => {
+            state.type = state.type.filter((user) => user?.id !== action.payload);
+            console.log("line 52", action.payload);
+        },
+        editType: (state, action) => {
+            // state.type = state.type.filter((user) => user?.id !== action.payload?.id);
+            // const usersF = [...state.type];
+            // usersF.push(action.payload);
+            // state.type = usersF;
+            console.log("line 52", action.payload);
         },
 
     }
@@ -72,7 +72,9 @@ export const {
     createUser,
     deleteUser,
     editUser,
-    createUserType
+    createUserType,
+    deleteType,
+    editType
 
 
 } = userSlice.actions;

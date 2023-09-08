@@ -1,0 +1,211 @@
+img {
+  max-width: 100%;
+  height: auto;
+}
+.formTemplate{
+  display: grid;
+  gap: 0;
+  grid-template-columns: auto 650px;
+  min-height: 100vh;
+  overflow: hidden;
+  &__img {
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    object-fit: cover;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+  &__card {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.formCard {
+  max-width: 450px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transform-origin: center right;
+  transition: transform 1s;
+  &.is-flipped {
+    transform: translateX(-100%) rotateY(-180deg);
+  }
+  &__face {
+    position: absolute;
+    width: 100%;
+    //height: 100%;
+    backface-visibility: hidden;
+    &--front {
+      //background: crimson;
+    }
+    &--back {
+      //background: slateblue;
+      transform: rotateY(180deg);
+    }
+  }
+  &__head {
+    margin-bottom: 40px;
+    text-align: center;
+    &-logo {
+      max-width: 150px;
+      margin-bottom: 15px;
+    }
+    p {
+      font-size: 22px;
+      font-weight: 600;
+      margin: 0;
+    }
+  }
+  &__title {
+    font-size: 28px !important;
+    margin: 0 0 35px !important;
+    font-weight: 700 !important;
+  }
+  form {
+    //background: #fff;
+    padding: 25px;
+    border: 1px solid #eee;
+    border-radius: 12px;
+  }
+}
+
+
+.form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  flex: 1 1 ;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 28rem;
+  img {
+    height: 100px;
+    width: 150px;
+    object-fit: fill;
+  }
+
+  .form-control {
+    margin-top: 1rem;
+    label {
+      display: block;
+      text-align: start;
+      font-size: 1rem;
+      font-weight: 500;
+      opacity: 1;
+      margin-bottom: 0.2rem;
+    }
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0.50rem;
+      font-size: 1rem;
+      height: 1.5rem;
+    }
+    .error-message {
+      color: red;
+      margin-top: 0.25rem;
+    }
+  }
+
+  .form-controls {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+
+    .checkbox {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      input {
+        margin-right: 0.25rem;
+      }
+    }
+
+    .forget-password {
+      text-decoration: none;
+      color: blue;
+    }
+
+    .login-button {
+      background-color: blue;
+      color: white;
+      padding: 1rem 1.5rem;
+      border: none;
+      border-radius: 0.25rem;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background-color 0.3s ease;
+      &:hover {
+        background-color: darkblue;
+      }
+      font-size: 1rem;
+    }
+  }
+}
+.forgot{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-top: 1rem;
+  .checkbox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+
+    input {
+      margin-right: 0.25rem;
+    }
+  }
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transform-origin: center right;
+  transition: transform 1s;
+}
+
+.card.is-flipped {
+  transform: translateX(-100%) rotateY(-180deg);
+}
+
+.card__face {
+  backface-visibility: hidden;
+}
+
+.card__face--front {
+}
+
+.card__face--back {
+  transform: rotateY(180deg);
+}
+div:has(+.MuiFormControl-root.MuiFormControl-marginNormal.MuiFormControl-fullWidth.MuiTextField-root) {
+  display: flex;
+  justify-content: space-between;
+}
+
+.fas{
+  font-size: 24px;
+}

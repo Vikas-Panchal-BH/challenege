@@ -17,3 +17,6 @@ export const signInService = (data) => {
     return data;
 };
 
+export const signOutService = () => {
+    store.dispatch(removeToken());
+}

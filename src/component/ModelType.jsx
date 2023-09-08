@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import DialogActions from '@mui/material/DialogActions';
-import { typeUserService } from '../redux/services/userServices';
+import { editTypeService, typeUserService } from '../redux/services/userServices';
 
 // Create a Yup schema for validation
 const schema = yup.object().shape({
@@ -23,11 +23,12 @@ const schema = yup.object().shape({
 // Create a default Material-UI theme
 const defaultTheme = createTheme();
 
-export default function ModelType() {
+export default function ModelType({ addType, id }) {
+    console.log(id)
     const [open, setOpen] = useState(false);
 
     // React Hook Form setup
-    const { handleSubmit, reset,control, formState: { errors } } = useForm({
+    const { handleSubmit, reset, control, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
     });
 
@@ -42,16 +43,18 @@ export default function ModelType() {
 
     const onSubmit = (data) => {
         const addemp = {
-            type: [data?.type]
+            id: Math.random(),
+            type: data?.type
         }
-        typeUserService(addemp)
+
+        addType ? typeUserService(addemp) : editTypeService(addemp, id)
         handleClose()
     }
 
     return (
         <div>
             <Button variant="outlined" onClick={handleClickOpen}>
-                Create Type
+                {addType ? "Create Type" : "Edit Type"}
             </Button>
             <Dialog open={open} onClose={handleClose}>
                 <ThemeProvider theme={defaultTheme}>
@@ -69,7 +72,7 @@ export default function ModelType() {
                                 <LockOutlinedIcon />
                             </Avatar>
                             <Typography component="h1" variant="h5">
-                                Type
+                                {addType ? "Create Type" : "Edit Type"}
                             </Typography>
                             <form onSubmit={handleSubmit(onSubmit)}>
                                 <Controller
@@ -103,7 +106,7 @@ export default function ModelType() {
                                         variant="contained"
                                         sx={{ mt: 3, mb: 2 }}
                                     >
-                                        AddType
+                                        {addType ? "AddType" : "EditType"}
                                     </Button>
                                 </DialogActions>
                             </form>
