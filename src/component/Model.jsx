@@ -100,6 +100,7 @@ export default function Model({ editid, add, data }) {
     }
 
     const userTypes = useSelector((state) => state?.user);
+    console.log("userTypes", userTypes)
     const theme = useTheme();
 
 
@@ -243,11 +244,11 @@ export default function Model({ editid, add, data }) {
                                     >
                                         {userTypes?.type?.map((name) => (
                                             <MenuItem
-                                                key={name}
-                                                value={name}
+                                                key={name?.id}
+                                                value={name?.type}
                                                 style={getStyles(name, personName, theme)}
                                             >
-                                                {name}
+                                                {name?.type}
                                             </MenuItem>
                                         ))}
                                     </Select>
