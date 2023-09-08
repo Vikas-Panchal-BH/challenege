@@ -140,8 +140,8 @@ const Header = () => {
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {userLinks.map((page) => (
-                            <MenuItem sx={{ my: 2, color: 'white', display: 'block' }} key={page}>
-                                <Link color='white' to={`/${page}`} onClick={handleCloseNavMenu} style={{ textDecoration: 'none', color: 'white',  backgroundColor: location.pathname === `/${page}` ? 'green' : 'black' }}>
+                            <MenuItem sx={{ my: 2,display: 'block',boxShadow:"none" }} key={page}>
+                                <Link  to={`/${page}`} onClick={handleCloseNavMenu} style={{ textDecoration: 'none',  color: location.pathname === `/${page}` ? 'black' : 'white' }}>
                                     {page}
                                 </Link>
                             </MenuItem>
