@@ -7,7 +7,7 @@ function App() {
     <div className="App">
         <ToastContainer/>
       <header className="App-header">
-        <AllRoutes />
+    <AllRoutes/>
       </header>
     </div>
   );

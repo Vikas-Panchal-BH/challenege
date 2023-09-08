@@ -11,6 +11,12 @@ import _ from "lodash";
 const User = () => {
     const datas = useSelector((state) => state.user);
     const users = useSelector((state) => state?.auth)
+    const types= useSelector((state) => state.user.type);
+    function getUserTypes(userTypes) {
+        const filteredTypes = types?.filter(typeObj => userTypes?.includes(typeObj?.id));
+        const result = filteredTypes?.map(typeObj => typeObj?.type);
+        return result?.join(',');
+    }
 
     const getUser = () => {
         getUserService()
@@ -31,6 +37,7 @@ const User = () => {
                 return '';
         }
     };
+    console.log("users",datas?.users);
     return (
         <>
             <Box>
@@ -50,7 +57,7 @@ const User = () => {
                                     <Typography mt={2} ml={3}>{"Username: "}{_.startCase(_.toLower(data?.username))}</Typography>
                                     <Typography mt={2} ml={3}>{"Email: "}{data?.email}</Typography>
                                     <Typography mt={2} ml={3}>{"Role: "}{getRoleName(data?.role)}</Typography>
-                                    <Typography mt={2} ml={3}>{"Type: "}{_.startCase(_.toLower(data?.type?.join(' ')))}</Typography>
+                                    <Typography mt={2} ml={3}>{"Type: "}{getUserTypes(data?.type)}</Typography>
                                     <Button> <Model editid={data?.id} data={data} /></Button>
                                     <Button type="submit"
 

@@ -13,13 +13,9 @@ export const persistConfig = {
 const combinedReducer = combineReducers({
     auth: authSlice,
     user: userSlice
-
 })
 
 const rootReducer = (state, action) => {
-    if (action.type == 'auth/removeToken') {
-        state = undefined
-    }
     return combinedReducer(state, action)
 }
 

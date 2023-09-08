@@ -12,10 +12,6 @@ const initialState = {
         }
     ],
     type: [
-        {
-            id: 1,
-            type: "vivek"
-        }
     ]
 
 }
@@ -25,43 +21,35 @@ const userSlice = createSlice({
 
         setUser: (state, action) => {
 
-            // console.log("line 38", action.payload);
 
 
         },
         createUser: (state, action) => {
-            const usersF = [...state.users];
-            usersF.push(action.payload);
-            state.users = usersF;
-            // console.log("line 48", action.payload);
+            const users = [...state.users, action.payload];
+
+            state.users = users;
         },
         deleteUser: (state, action) => {
             state.users = state.users.filter((user) => user.id !== action.payload);
-            // console.log("line 52", action.payload);
+
         },
         editUser: (state, action) => {
             state.users = state.users.filter((user) => user.id !== action.payload?.id);
-            const usersF = [...state.users];
-            usersF.push(action.payload?.data);
-            state.users = usersF;
-            // console.log("line 51", action.payload);
+            const users = [...state.users, action.payload?.data];
+            state.users = users;
         },
         createUserType: (state, action) => {
-            const usersF = [...state.type];
-            usersF.push(action.payload);
+            const usersF = [...state.type, action.payload];
             state.type = usersF;
-            console.log("line 61", action.payload);
         },
         deleteType: (state, action) => {
             state.type = state.type.filter((user) => user?.id !== action.payload);
-            console.log("line 52", action.payload);
         },
         editType: (state, action) => {
-            // state.type = state.type.filter((user) => user?.id !== action.payload?.id);
-            // const usersF = [...state.type];
-            // usersF.push(action.payload);
-            // state.type = usersF;
-            console.log("line 52", action.payload);
+            state.type = state.type.filter((user) => user?.id !== action.payload?.id);
+            const users = [...state.type, action.payload?.data];
+            state.type = users;
+
         },
 
     }

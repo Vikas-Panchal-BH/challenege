@@ -20,5 +20,6 @@ export const deletTypeService = (id) => {
     store.dispatch(deleteType(id))
 };
 export const editTypeService = (data, id) => {
-    store.dispatch(editType(data, id))
+
+    store.dispatch(editType({ data, id }))
 };

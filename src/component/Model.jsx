@@ -58,7 +58,7 @@ const schema = yup.object().shape({
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
             'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character'
         ),
-    role: yup.string().notOneOf(['Role']).required("Role is required"),
+    role: yup.number().required("Role is required"),
     type: yup.mixed(),
 });
 
@@ -80,7 +80,7 @@ export default function Model({ editid, add, data }) {
     };
     const onSubmit = (data) => {
         const addemp = {
-            id: Math.random(),
+            id: Math.floor(Math.random() * 100000),
             username: data?.username,
             email: data?.email,
             password: data?.password,
@@ -100,7 +100,7 @@ export default function Model({ editid, add, data }) {
     }
 
     const userTypes = useSelector((state) => state?.user);
-    console.log("userTypes", userTypes)
+  
     const theme = useTheme();
 
 
@@ -149,14 +149,13 @@ export default function Model({ editid, add, data }) {
                                         <TextField
                                             {...field}
                                             margin="normal"
-                                            required
                                             fullWidth
                                             label="Username"
                                             type='text'
                                             autoFocus
                                             autoComplete="off"
-                                            error={!!errors.email}
-                                            helperText={errors.email?.message}
+                                            error={!!errors.username}
+                                            helperText={errors.username?.message}
                                         />
                                     )}
                                 />
@@ -167,11 +166,9 @@ export default function Model({ editid, add, data }) {
                                         <TextField
                                             {...field}
                                             margin="normal"
-                                            required
                                             fullWidth
                                             label="Email Address"
                                             type='email'
-                                            autoFocus
                                             autoComplete="off"
                                             error={!!errors.email}
                                             helperText={errors.email?.message}
@@ -182,12 +179,10 @@ export default function Model({ editid, add, data }) {
                                 <Controller
                                     name="role"
                                     control={control}
-                                    defaultValue={1}
                                     render={({ field }) => (
                                         <TextField
                                             {...field}
                                             margin="normal"
-                                            required
                                             fullWidth
                                             label="Role"
                                             error={!!errors?.role}
@@ -195,8 +190,9 @@ export default function Model({ editid, add, data }) {
                                             select
 
                                         >
-                                            <MenuItem value={1}>Admin</MenuItem>
+
                                             <MenuItem value={2}>User</MenuItem>
+                                            <MenuItem value={1}>Admin</MenuItem>
                                         </TextField>
                                     )}
                                 />
@@ -209,7 +205,6 @@ export default function Model({ editid, add, data }) {
                                         <TextField
                                             {...field}
                                             margin="normal"
-                                            required
                                             fullWidth
                                             label="Password"
                                             type={passwordVisible ? 'text' : 'password'}
@@ -245,7 +240,7 @@ export default function Model({ editid, add, data }) {
                                         {userTypes?.type?.map((name) => (
                                             <MenuItem
                                                 key={name?.id}
-                                                value={name?.type}
+                                                value={name?.id}
                                                 style={getStyles(name, personName, theme)}
                                             >
                                                 {name?.type}
