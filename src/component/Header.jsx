@@ -13,7 +13,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { signOutService } from '../redux/services/authServices';
 import { useSelector } from 'react-redux';
@@ -23,7 +23,7 @@ const Header = () => {
     const navigate = useNavigate();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+    const location = useLocation();
     const handleLogout = () => {
         signOutService();
         navigate('/');
@@ -112,7 +112,7 @@ const Header = () => {
                         >
                             {userLinks.map((page) => (
                                 <MenuItem sx={{ my: 2, color: 'white', display: 'block' }} key={page}>
-                                    <Link to={`/${page}`} onClick={handleCloseNavMenu}>
+                                    <Link to={`/${page}`} onClick={handleCloseNavMenu} style={{ textDecoration: 'none', color: 'inherit' }}>
                                         {page}
                                     </Link>
                                 </MenuItem>
@@ -141,7 +141,7 @@ const Header = () => {
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {userLinks.map((page) => (
                             <MenuItem sx={{ my: 2, color: 'white', display: 'block' }} key={page}>
-                                <Link to={`/${page}`} onClick={handleCloseNavMenu}>
+                                <Link color='white' to={`/${page}`} onClick={handleCloseNavMenu} style={{ textDecoration: 'none', color: 'white',  backgroundColor: location.pathname === `/${page}` ? 'green' : 'black' }}>
                                     {page}
                                 </Link>
                             </MenuItem>
