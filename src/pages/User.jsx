@@ -37,7 +37,7 @@ const User = () => {
                 return '';
         }
     };
-    console.log("users", datas?.users);
+   
     return (
         <>
             <Box>
