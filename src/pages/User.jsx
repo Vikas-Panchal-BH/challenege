@@ -1,12 +1,20 @@
 
 import React, { useEffect } from 'react'
 import { Box, Button, Grid, Paper, Typography } from '@mui/material';
-
+import { styled } from '@mui/material/styles';
 import Model from '../component/Model';
 import { useSelector } from 'react-redux';
 import { deleteUserService, getUserService } from '../redux/services/userServices';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import _ from "lodash";
-
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+}));
 
 const User = () => {
     const datas = useSelector((state) => state.user);
@@ -37,7 +45,7 @@ const User = () => {
                 return '';
         }
     };
-   
+
     return (
         <>
             <Box>
@@ -49,23 +57,28 @@ const User = () => {
 
                 </Grid>
                 <Box mt={"3%"}>
-                    <Grid gap={"1rem"} container spacing={{ xs: 3, md: 3 }} columns={{ xs: 3, sm: 8, md: 12 }}>
+                    <Grid container spacing={2}>
                         {
                             datas?.users?.filter(data => data.role != 0).map((data, index) =>
-                                <Grid component={Paper} data xs={4} key={index}>
-                                    <Typography mt={2} ml={3}>{"Username: "}{_.startCase(_.toLower(data?.username))}</Typography>
-                                    <Typography mt={2} ml={3}>{"Email: "}{data?.email}</Typography>
-                                    <Typography mt={2} ml={3}>{"Role: "}{getRoleName(data?.role)}</Typography>
-                                    <Typography mt={2} ml={3}>{"Type: "}{getUserTypes(data?.type)}</Typography>
-                                    <Button> <Model editid={data?.id} data={data} /></Button>
-                                    {isSuperAdmin && <Button
-                                        type="submit"
-                                        variant="contained"
-                                        onClick={() => del(data?.id)}>Delete</Button>}
+                                <Grid item xs={4} key={index} data >
+                                    <Item>
+                                        <Typography color={"black"} mt={2} ml={3}>{_.toUpper("Username: ")}{_.startCase(_.toLower(data?.username))}</Typography>
+                                        <Typography color={"black"} mt={2} ml={3}>{_.toUpper("Email: ")}{data?.email}</Typography>
+                                        <Typography color={"black"} mt={2} ml={3}>{_.toUpper("Role: ")}{getRoleName(data?.role)}</Typography>
+                                        {getUserTypes(data?.type) !== "" && <Typography color={"black"} mt={2} ml={3}>{"Type: "}{_.toUpper(getUserTypes(data?.type))}</Typography>}
+
+                                        <Button> <Model editid={data?.id} data={data} /></Button>
+                                        {isSuperAdmin && <Button
+                                            type="submit"
+                                            variant="contained"
+                                            style={{ backgroundColor: 'red' }}
+                                            onClick={() => del(data?.id)}><DeleteIcon /></Button>}
+                                    </Item>
                                 </Grid>
                             )
                         }
                     </Grid>
+
 
                 </Box>
 

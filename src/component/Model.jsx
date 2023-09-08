@@ -27,6 +27,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import Select from '@mui/material/Select';
 import { useTheme } from '@emotion/react';
 import { useEffect } from "react";
+import PersonIcon from '@mui/icons-material/Person';
 const defaultTheme = createTheme();
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -100,7 +101,7 @@ export default function Model({ editid, add, data }) {
     }
 
     const userTypes = useSelector((state) => state?.user);
-  
+
     const theme = useTheme();
 
 
@@ -120,8 +121,12 @@ export default function Model({ editid, add, data }) {
 
     return (
         <div>
-            <Button variant="outlined" onClick={handleClickOpen}>
-                {add ? "Create User" : "Edit User"}
+            <Button variant="outlined" onClick={handleClickOpen} style={{
+                backgroundColor: add ? 'blue' : 'green',
+                color: 'white',
+                border: 'none',
+            }}>
+                {add ? <PersonIcon /> : <ModeEditIcon />}
             </Button>
             <Dialog open={open} onClose={handleClose}>
                 <ThemeProvider theme={defaultTheme}>
