@@ -59,20 +59,20 @@ const User = () => {
 
 
                 </Grid>
-                <Box mt={"3%"}>
-                    <Grid container spacing={2}>
+                <Box mt={"2%"}>
+                    <Grid maxWidth={"1000px"} container spacing={2}>
                         {
                             datas?.users?.filter(data => data.role != 0).map((data, index) =>
-                                <Grid item xs={4} key={index} data >
+                                <Grid item xs={4} key={index}  >
                                     <Item>
-                                        <Typography color={"black"} mt={2} ml={3}>{_.toUpper("Username: ")}{_.startCase(_.toLower(data?.username))}</Typography>
-                                        <Typography color={"black"} mt={2} ml={3}>{_.toUpper("Email: ")}{data?.email}</Typography>
-                                        <Typography color={"black"} mt={2} ml={3}>{_.toUpper("Role: ")}{getRoleName(data?.role)}</Typography>
+                                        <Typography color={"black"} mt={2} ml={3}><b>{_.toUpper("Username: ")}</b>{_.startCase(_.toLower(data?.username))}</Typography>
+                                        <Typography color={"black"} mt={2} ml={3}><b>{_.toUpper("Email: ")}</b>{data?.email}</Typography>
+                                        <Typography color={"black"} mt={2} ml={3}><b>{_.toUpper("Role: ")}</b>{getRoleName(data?.role)}</Typography>
                                         {getUserTypes(data?.type) !== "" && <Typography color={"black"} mt={2} ml={3}>{"Type: "}{_.toUpper(getUserTypes(data?.type))}</Typography>}
 
                                         <Button> <Model editid={data?.id} data={data} /></Button>
                                         {isSuperAdmin && <Button
-                                            type="submit"
+
                                             variant="contained"
                                             style={{ backgroundColor: 'red' }}
                                             onClick={() => del(data?.id)}><DeleteIcon /></Button>}

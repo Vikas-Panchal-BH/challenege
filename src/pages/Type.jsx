@@ -4,9 +4,8 @@ import { styled } from '@mui/material/styles';
 import ModelType from '../component/ModelType'
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useSelector } from 'react-redux'
-import { Button } from '@mui/base'
 import { deletTypeService } from '../redux/services/userServices'
-
+import Button from "@mui/material/Button";
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -14,6 +13,7 @@ const Item = styled(Paper)(({ theme }) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
 }));
+
 const Type = () => {
     const types = useSelector((state) => state?.user)
     const { isSuperAdmin } = useSelector((state) => state?.auth);
@@ -26,25 +26,26 @@ const Type = () => {
                 <Typography variant="h3" color={"gray"} textAlign={"center"}>Types</Typography>
             </Box>
             <Grid container justifyContent="flex-end" marginTop="1%" marginRight="1%">
-                <Grid item>
+                <Grid >
                     <ModelType />
                 </Grid>
             </Grid>
             <Box mt={"3%"}>
-                <Grid gap={"1rem"} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                <Grid maxWidth={"800px"} padding={"10px"} container spacing={2}>
                     {
                         types?.type?.map((data, index) =>
 
-                            <Grid item xs={4} key={index} data >
+                            <Grid item xs={4} key={index}  >
                                 <Item>
-                                    <Typography mt={2} ml={3}>{"Type: "}{data?.type}</Typography>
-                                    <Button>
-                                        <ModelType id={data?.id} addType={data?.type} />
-                                    </Button>
+                                    <Typography my={2} ml={3}><b>Type:</b>{data?.type}</Typography>
 
-                                    {isSuperAdmin && <Button type="submit"
-                                        variant="contained"
-                                        style={{ backgroundColor: 'red' }} onClick={() => dele(data?.id)}><DeleteIcon /></Button>}
+                                    <Button sx={{border:"none"}}><ModelType id={data?.id} addType={data?.type} />
+                                    </Button>
+{isSuperAdmin && <Button
+    variant="contained"
+    style={{ backgroundColor: 'red',border:"none" }}
+    onClick={() => dele(data?.id)}><DeleteIcon /></Button>}
+
                                 </Item>
 
 
