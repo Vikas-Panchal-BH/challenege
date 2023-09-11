@@ -1,11 +1,11 @@
-import { Box, Grid, Paper, Typography } from '@mui/material'
-import React from 'react'
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Box, Grid, Paper, Typography, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import ModelType from '../component/ModelType'
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useSelector } from 'react-redux'
-import { deletTypeService } from '../redux/services/userServices'
-import Button from "@mui/material/Button";
+import ModelType from '../component/ModelType';
+import { deletTypeService } from '../redux/services/userServices';
+
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,

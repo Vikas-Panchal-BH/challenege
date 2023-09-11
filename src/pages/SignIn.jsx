@@ -2,23 +2,22 @@ import * as React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
 
-import Box from '@mui/material/Box';
+import {
+    Avatar, Button, CssBaseline,
+    TextField, Box, Typography,
+    IconButton, Grid, Paper,
+    InputAdornment,
+} from '@mui/material';
+
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
 import { signInService } from '../redux/services/authServices';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import IconButton from '@mui/material/IconButton';
-import { Grid, Paper } from "@mui/material";
-import { toast } from "react-toastify";
-import InputAdornment from '@mui/material/InputAdornment';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { toast } from 'react-toastify';
 
 
 const schema = yup.object().shape({

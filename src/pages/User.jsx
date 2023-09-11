@@ -6,8 +6,8 @@ import Model from '../component/Model';
 import { useSelector } from 'react-redux';
 import { deleteUserService, getUserService } from '../redux/services/userServices';
 import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 import _ from "lodash";
+
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,

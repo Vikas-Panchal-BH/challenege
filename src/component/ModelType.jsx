@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import Box from '@mui/material/Box';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm, Controller } from 'react-hook-form';
+import {
+    Button, TextField, Dialog, Box,
+    DialogActions, Avatar, Typography,
+    Container, CssBaseline,
+} from '@mui/material';
+import {useForm, Controller,
+} from 'react-hook-form';
 import * as yup from 'yup';
-import Avatar from '@mui/material/Avatar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {
+    editTypeService, typeUserService,
+} from '../redux/services/userServices';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import CssBaseline from '@mui/material/CssBaseline';
-import DialogActions from '@mui/material/DialogActions';
-import { editTypeService, typeUserService } from '../redux/services/userServices';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import AddIcon from '@mui/icons-material/Add';
+import {yupResolver} from "@hookform/resolvers/yup";
+
 const schema = yup.object().shape({
     type: yup.string().required("Designation is required"),
 });
@@ -63,7 +63,7 @@ export default function ModelType({ addType, id }) {
                 backgroundColor: addType ? 'blue' : 'green',
                 color: 'white',
                 border: 'none',
-                marginRight:"50px"
+                marginRight: "50px"
             }}>
                 {addType ? <ModeEditIcon /> : <AddIcon />}
             </Button>

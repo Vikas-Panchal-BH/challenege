@@ -1,13 +1,10 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import {
+  Box, Card, CardActions,
+  CardContent, Button, Typography,
+} from '@mui/material';
 import { useSelector } from 'react-redux';
 import _ from "lodash";
-
 
 export default function Dashboard() {
   const currentUser = useSelector((state) => state.auth?.currentUser);

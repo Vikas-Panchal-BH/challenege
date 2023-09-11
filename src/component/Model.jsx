@@ -1,33 +1,48 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import Box from '@mui/material/Box';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm, Controller } from 'react-hook-form';
+import React, { useEffect } from 'react';
+import {
+    Avatar,
+    Box,
+    Button,
+    Container,
+    CssBaseline,
+    Dialog,
+    DialogActions, FormControl,
+    IconButton,
+    InputAdornment,
+    InputLabel,
+    MenuItem,
+    OutlinedInput,
+    Select,
+    TextField,
+    Typography,
+} from '@mui/material';
+
+import {
+    createTheme,
+    ThemeProvider,
+    useTheme,
+} from '@mui/material/styles';
+
+import {
+    useForm,
+    Controller,
+} from 'react-hook-form';
+
 import * as yup from 'yup';
-import Avatar from '@mui/material/Avatar';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import CssBaseline from '@mui/material/CssBaseline';
-import DialogActions from '@mui/material/DialogActions';
-import { editUserService, userService } from '../redux/services/userServices';
+
+import {
+    Visibility,
+    VisibilityOff,
+    ModeEdit as ModeEditIcon,
+    Add as AddIcon,
+    PersonAdd as PersonAddIcon,
+} from '@mui/icons-material';
+
 import { useSelector } from 'react-redux';
-import IconButton from '@mui/material/IconButton';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import InputAdornment from '@mui/material/InputAdornment';
-import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import AddIcon from '@mui/icons-material/Add';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import Select from '@mui/material/Select';
-import { useTheme } from '@emotion/react';
-import { useEffect } from "react";
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
+
+import { editUserService, userService } from '../redux/services/userServices';
+import {yupResolver} from "@hookform/resolvers/yup";
+
 const defaultTheme = createTheme();
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
