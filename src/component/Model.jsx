@@ -115,7 +115,7 @@ export default function Model({ editid,data }) {
             type: personName
         }
 
-        const valid = !editid ? await  createuserService(add) : await editUserService(edit, !editid)
+        const valid = !editid ? await  createuserService(add) : await editUserService(edit, editid)
         if (valid) {
             toast.success(!editid ? "User Added" :"User Updated")
         } else {
