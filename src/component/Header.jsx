@@ -8,14 +8,12 @@ import {
     Menu,
     Container,
     Avatar,
-    Button,
     Tooltip,
     MenuItem,
 } from '@mui/material';
 
 import { Menu as MenuIcon, Adb as AdbIcon } from '@mui/icons-material';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { signOutService } from '../redux/services/authServices';
 import { useSelector } from 'react-redux';
 

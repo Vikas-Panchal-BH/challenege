@@ -1,49 +1,18 @@
 const { createSlice } = require("@reduxjs/toolkit");
 const initialState = {
 
-    users: [
-        {
-            "id": 1,
-            "username": "superadmin",
-            "email": "superadmin@gmail.com",
-            "password": "Superadmin@123",
-            "role": 0,
-            "type": [],
-        },
-        {
-            "id": 2,
-            "username": "admin",
-            "email": "admin@gmail.com",
-            "password": "Admin@123",
-            "role": 1,
-            "type": [],
-        },
-        {
-            "id": 3,
-            "username": "user123",
-            "email": "user@gmail.com",
-            "password": "User@123",
-            "role": 2,
-            "type": [],
-        },
-
-    ],
-    type: [
-    ]
+    users: [],
+    type: []
 
 }
 const userSlice = createSlice({
     name: "user", initialState,
     reducers: {
-
         setUser: (state, action) => {
-
-
-
+            state.users = action.payload
         },
         createUser: (state, action) => {
             const users = [...state.users, action.payload];
-
             state.users = users;
         },
         deleteUser: (state, action) => {
@@ -55,9 +24,12 @@ const userSlice = createSlice({
             const users = [...state.users, action.payload?.data];
             state.users = users;
         },
+        setTypes: (state, action) => {
+            state.type = action.payload;
+        },
         createUserType: (state, action) => {
-            const usersF = [...state.type, action.payload];
-            state.type = usersF;
+            const users = [...state.type, action.payload];
+            state.type = users;
         },
         deleteType: (state, action) => {
             state.type = state.type.filter((user) => user?.id !== action.payload);
@@ -79,8 +51,8 @@ export const {
     editUser,
     createUserType,
     deleteType,
-    editType
-
+    editType,
+    setTypes
 
 } = userSlice.actions;
 

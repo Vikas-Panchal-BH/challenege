@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
     Button, TextField, Dialog, Box,
     DialogActions, Avatar, Typography,
-    Container, CssBaseline,
+    Container, CssBaseline, CircularProgress,
 } from '@mui/material';
 import {useForm, Controller,
 } from 'react-hook-form';
@@ -15,6 +15,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import AddIcon from '@mui/icons-material/Add';
 import {yupResolver} from "@hookform/resolvers/yup";
+import {toast} from "react-toastify";
 
 const schema = yup.object().shape({
     type: yup.string().required("Designation is required"),
@@ -26,6 +27,7 @@ const defaultTheme = createTheme();
 export default function ModelType({ addType, id }) {
 
     const [open, setOpen] = useState(false);
+    const [loader,setLoader] = React.useState(false);
 
 
     const { handleSubmit, reset, control, formState: { errors } } = useForm({
@@ -37,20 +39,26 @@ export default function ModelType({ addType, id }) {
     };
 
     const handleClose = () => {
+        setLoader(false);
         setOpen(false);
         reset();
     };
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
+        setLoader(true)
         const addemp = {
-            id: Math.floor(Math.random() * 100000),
             type: data?.type
         }
         const editemp = {
             type: data?.type
         }
 
-        !addType ? typeUserService(addemp) : editTypeService(editemp, id)
+        const valid = !addType ? await typeUserService(addemp) : await editTypeService(editemp, id)
+        if (valid) {
+            toast.success(!addType ? "Type Added" :"Type Update")
+        } else {
+            toast.error("Error");
+        }
         handleClose()
     }
     useEffect(() => {
@@ -117,7 +125,7 @@ export default function ModelType({ addType, id }) {
                                         variant="contained"
                                         sx={{ mt: 3, mb: 2 }}
                                     >
-                                        {!addType ? "AddType" : "EditType"}
+                                        {loader ? <CircularProgress/> : !addType ? "AddType" : "EditType"}
                                     </Button>
                                 </DialogActions>
                             </form>

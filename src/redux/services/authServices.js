@@ -1,22 +1,30 @@
 import { removeToken, setToken, setUser } from "../../redux/slice/authSlice";
 import { store } from "../../redux/store";
+import {collection, getDocs, getFirestore, where,query} from "firebase/firestore";
 
-export const signInService = (data) => {
-    const usersFromState = store.getState().user.users;
-    const user = usersFromState.find((user) => user.email === data.email);
+export const signInService = async (data) => {
+    try {
+        const db = getFirestore();
+        const collectionRef = collection(db, "users");
 
-    if (user && user.password === data.password) {
-        store.dispatch(setToken(user));
-        store.dispatch(setUser(user));
-        return true;
-    } else {
-        store.dispatch(removeToken(user));
-        return false;
+        const q = query(collectionRef, where("email", "==", data?.email), where("password", "==", data?.password));
+
+        const docSnap = await getDocs(q);
+        const userData = [];
+        docSnap.forEach((doc) => {
+            userData.push(doc.data())
+        });
+        store.dispatch(setToken(userData[0]));
+        store.dispatch(setUser(userData[0]))
+        return userData?.length > 0;
+    } catch (e) {
+        console.log("error",e);
     }
-
-    return data;
 };
 
 export const signOutService = () => {
     store.dispatch(removeToken());
-}
+};
+
+// Export these functions if needed by other parts of your application.
+export default { signInService, signOutService };

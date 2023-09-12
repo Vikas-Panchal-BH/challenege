@@ -1,6 +1,5 @@
 const { createSlice } = require("@reduxjs/toolkit");
 const initialState = {
-
     currentUser: {},
     isAdmin: 0,
     isBasic: 0,

@@ -16,6 +16,9 @@ const combinedReducer = combineReducers({
 })
 
 const rootReducer = (state, action) => {
+    if (action.type === 'auth/removeToken') {
+        state = undefined
+    }
     return combinedReducer(state, action)
 }
 
