@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import { useSelector } from 'react-redux';
-import { Box, Grid, Paper, Typography, Button } from '@mui/material';
+import {Box, Grid, Paper, Typography, Button, CircularProgress} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModelType from '../component/ModelType';
@@ -16,6 +16,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const Type = () => {
+    const [loader,setLoader] = React.useState(false);
     const types = useSelector((state) => state?.user)
     const { isSuperAdmin } = useSelector((state) => state?.auth);
     const dele = async (id) => {
@@ -28,9 +29,11 @@ const Type = () => {
     }
     const  getType = async () => {
         await getTypeService();
+        setLoader(false)
     }
 
     useEffect(() => {
+        setLoader(true)
         getType();
     }, []);
     return (
@@ -46,6 +49,10 @@ const Type = () => {
             <Box mt={"3%"}>
                 <Grid maxWidth={"800px"} padding={"10px"} container spacing={2}>
                     {
+                        loader ?
+                            <Box sx={{ display: 'flex' }}>
+                                <CircularProgress />
+                            </Box> :
                         types?.type?.map((data, index) =>
 
                             <Grid item xs={4} key={index}  >

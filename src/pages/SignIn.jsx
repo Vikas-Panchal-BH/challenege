@@ -7,7 +7,7 @@ import {
     Avatar, Button, CssBaseline,
     TextField, Box, Typography,
     IconButton, Grid, Paper,
-    InputAdornment,
+    InputAdornment, CircularProgress,
 } from '@mui/material';
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -32,6 +32,7 @@ const schema = yup.object().shape({
 });
 
 export default function SignIn() {
+    const [loader,setLoader] = React.useState(false);
     const navigate = useNavigate();
 
     const { handleSubmit, register, formState: { errors } } = useForm({
@@ -40,12 +41,14 @@ export default function SignIn() {
 
         
     const onSubmit = async (data, event) => {
+        setLoader(true)
         const valid = await signInService(data);
         if (!valid) {
             toast.error("Invalid Email or Password")
         } else {
             navigate("/dashboard");
         }
+        setLoader(false)
 
     };
     const [showPassword, setShowPassword] = React.useState(false);
@@ -137,7 +140,7 @@ export default function SignIn() {
                                 variant="contained"
                                 sx={{ mt: 2, mb: 2 }}
                             >
-                                Log In
+                                {loader ? <CircularProgress/> : "Log In" }
                             </Button>
                         </Box>
                     </Box>

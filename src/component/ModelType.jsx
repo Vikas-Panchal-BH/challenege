@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
     Button, TextField, Dialog, Box,
     DialogActions, Avatar, Typography,
-    Container, CssBaseline,
+    Container, CssBaseline, CircularProgress,
 } from '@mui/material';
 import {useForm, Controller,
 } from 'react-hook-form';
@@ -27,6 +27,7 @@ const defaultTheme = createTheme();
 export default function ModelType({ addType, id }) {
 
     const [open, setOpen] = useState(false);
+    const [loader,setLoader] = React.useState(false);
 
 
     const { handleSubmit, reset, control, formState: { errors } } = useForm({
@@ -38,11 +39,13 @@ export default function ModelType({ addType, id }) {
     };
 
     const handleClose = () => {
+        setLoader(false);
         setOpen(false);
         reset();
     };
 
     const onSubmit = async (data) => {
+        setLoader(true)
         const addemp = {
             type: data?.type
         }
@@ -122,7 +125,7 @@ export default function ModelType({ addType, id }) {
                                         variant="contained"
                                         sx={{ mt: 3, mb: 2 }}
                                     >
-                                        {!addType ? "AddType" : "EditType"}
+                                        {loader ? <CircularProgress/> : !addType ? "AddType" : "EditType"}
                                     </Button>
                                 </DialogActions>
                             </form>

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import {
     Avatar,
     Box,
-    Button,
+    Button, CircularProgress,
     Container,
     CssBaseline,
     Dialog,
@@ -16,6 +16,7 @@ import {
     TextField,
     Typography,
 } from '@mui/material';
+
 
 import {
     createTheme,
@@ -82,6 +83,7 @@ const schema = yup.object().shape({
 export default function Model({ editid,data }) {
 
     const [personName, setPersonName] = React.useState([]);
+    const [loader,setLoader] = React.useState(false);
     const [open, setOpen] = React.useState(false);
     const [passwordVisible, setPasswordVisible] = React.useState(false);
     const { handleSubmit, reset, control, formState: { errors } } = useForm({
@@ -92,10 +94,12 @@ export default function Model({ editid,data }) {
     };
 
     const handleClose = () => {
+        setLoader(true);
         setOpen(false);
         reset({});
     };
     const onSubmit = async  (data) => {
+        setLoader(true)
         const add = {
             username: data?.username,
             email: data?.email,
@@ -287,7 +291,8 @@ export default function Model({ editid,data }) {
                                         sx={{ mt: 3, mb: 2 }}
 
                                     >
-                                        {!editid ? "Add User" : "Edit User"}
+                                        {loader ? <CircularProgress/>
+                                            : !editid ? "Add User" : "Edit User"}
                                     </Button>
                                 </DialogActions>
 

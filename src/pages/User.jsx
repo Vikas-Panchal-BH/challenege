@@ -1,6 +1,6 @@
 
 import React, { useEffect } from 'react'
-import { Box, Button, Grid, Paper, Typography } from '@mui/material';
+import {Box, Button, CircularProgress, Grid, Paper, Typography} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Model from '../component/Model';
 import { useSelector } from 'react-redux';
@@ -18,6 +18,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const User = () => {
+    const [loader,setLoader] = React.useState(false);
     const datas = useSelector((state) => state.user);
     const { isSuperAdmin } = useSelector((state) => state?.auth);
     const types = useSelector((state) => state.user.type);
@@ -27,13 +28,15 @@ const User = () => {
         return result?.join(',');
     }
 
-    const getUser = () => {
-        getUserService()
+    const getUser = async () =>  {
+        await getUserService()
+        setLoader(false);
     }
     const  getType = async () => {
         await getTypeService();
     }
     useEffect(() => {
+        setLoader(true)
         getUser()
         getType();
     }, [])
@@ -72,6 +75,9 @@ const User = () => {
                 <Box mt={"2%"}>
                     <Grid maxWidth={"1000px"} container spacing={2}>
                         {
+                            loader ?<Box sx={{ display: 'flex' }}>
+                                    <CircularProgress />
+                                </Box> :
                             datas?.users?.filter(data => data.role != 0).map((data, index) =>
                                 <Grid item xs={4} key={index}  >
                                     <Item>
