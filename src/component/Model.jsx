@@ -94,7 +94,7 @@ export default function Model({ editid,data }) {
     };
 
     const handleClose = () => {
-        setLoader(true);
+        setLoader(false);
         setOpen(false);
         reset({});
     };

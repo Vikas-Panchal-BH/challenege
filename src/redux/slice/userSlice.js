@@ -21,7 +21,7 @@ const userSlice = createSlice({
         },
         editUser: (state, action) => {
             state.users = state.users.filter((user) => user.id !== action.payload?.id);
-            const users = [...state.users, action.payload?.data];
+            const users = [...state.users, {id:action.payload?.id,...action.payload?.data}];
             state.users = users;
         },
         setTypes: (state, action) => {
