@@ -4,9 +4,10 @@ import { Box, Button, Grid, Paper, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Model from '../component/Model';
 import { useSelector } from 'react-redux';
-import { deleteUserService, getUserService } from '../redux/services/userServices';
+import {deleteUserService, getTypeService, getUserService} from '../redux/services/userServices';
 import DeleteIcon from '@mui/icons-material/Delete';
 import _ from "lodash";
+import {toast} from "react-toastify";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -29,11 +30,20 @@ const User = () => {
     const getUser = () => {
         getUserService()
     }
+    const  getType = async () => {
+        await getTypeService();
+    }
     useEffect(() => {
         getUser()
+        getType();
     }, [])
-    const del = (id) => {
-        deleteUserService(id)
+    const del = async (id) => {
+        const valid = await deleteUserService(id)
+        if (valid) {
+            toast.success("User Deleted")
+        } else {
+            toast.error("Error");
+        }
     }
     const getRoleName = (role) => {
         switch (role) {
@@ -54,7 +64,7 @@ const User = () => {
             <Box>
                 <Grid container justifyContent="flex-end" marginTop="1%" marginRight="1%">
                     <Grid item>
-                        <Model add={true} />
+                        <Model editid={false}  />
                     </Grid>
 
 

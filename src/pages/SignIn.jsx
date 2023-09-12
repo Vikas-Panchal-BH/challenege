@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -15,7 +15,6 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 import { signInService } from '../redux/services/authServices';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -25,11 +24,11 @@ const schema = yup.object().shape({
     password: yup
         .string()
         .required('Password is Required!')
-        .min(8, 'Password must be at least 8 characters')
-        .matches(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
-            'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character'
-        ),
+        // .min(8, 'Password must be at least 8 characters')
+        // .matches(
+        //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
+        //     'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character'
+        // ),
 });
 
 export default function SignIn() {
@@ -38,10 +37,10 @@ export default function SignIn() {
     const { handleSubmit, register, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
     });
-   
+
         
-    const onSubmit = (data, event) => {
-        const valid = signInService(data);
+    const onSubmit = async (data, event) => {
+        const valid = await signInService(data);
         if (!valid) {
             toast.error("Invalid Email or Password")
         } else {

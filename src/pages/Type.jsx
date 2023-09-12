@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useSelector } from 'react-redux';
 import { Box, Grid, Paper, Typography, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModelType from '../component/ModelType';
-import { deletTypeService } from '../redux/services/userServices';
+import {deletTypeService, getTypeService} from '../redux/services/userServices';
+import {toast} from "react-toastify";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -17,9 +18,21 @@ const Item = styled(Paper)(({ theme }) => ({
 const Type = () => {
     const types = useSelector((state) => state?.user)
     const { isSuperAdmin } = useSelector((state) => state?.auth);
-    const dele = (id) => {
-        deletTypeService(id)
+    const dele = async (id) => {
+        const valid = await deletTypeService(id)
+        if (valid) {
+            toast.success("Type Deleted")
+        } else {
+            toast.error("Error");
+        }
     }
+    const  getType = async () => {
+        await getTypeService();
+    }
+
+    useEffect(() => {
+        getType();
+    }, []);
     return (
         <Box>
             <Box mt={"1%"}>

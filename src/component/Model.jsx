@@ -40,8 +40,9 @@ import {
 
 import { useSelector } from 'react-redux';
 
-import { editUserService, userService } from '../redux/services/userServices';
+import {createuserService, editUserService} from '../redux/services/userServices';
 import {yupResolver} from "@hookform/resolvers/yup";
+import {toast} from "react-toastify";
 
 const defaultTheme = createTheme();
 const ITEM_HEIGHT = 48;
@@ -78,7 +79,7 @@ const schema = yup.object().shape({
     type: yup.mixed(),
 });
 
-export default function Model({ editid, add, data }) {
+export default function Model({ editid,data }) {
 
     const [personName, setPersonName] = React.useState([]);
     const [open, setOpen] = React.useState(false);
@@ -94,25 +95,30 @@ export default function Model({ editid, add, data }) {
         setOpen(false);
         reset({});
     };
-    const onSubmit = (data) => {
-        const addemp = {
-            id: Math.floor(Math.random() * 100000),
+    const onSubmit = async  (data) => {
+        const add = {
             username: data?.username,
             email: data?.email,
             password: data?.password,
             role: +(data?.role),
             type: personName
         }
-        const editemp = {
-            id: editid,
+        const edit = {
             username: data?.username,
             email: data?.email,
             password: data?.password,
             role: +(data?.role),
             type: personName
         }
-        add ? userService(addemp) : editUserService(editemp, editid)
+
+        const valid = !editid ? await  createuserService(add) : await editUserService(edit, !editid)
+        if (valid) {
+            toast.success(!editid ? "User Added" :"User Updated")
+        } else {
+            toast.error("Error");
+        }
         handleClose()
+
     }
 
     const userTypes = useSelector((state) => state?.user);
@@ -137,11 +143,11 @@ export default function Model({ editid, add, data }) {
     return (
         <div>
             <Button sx={{marginRight:"50px"}} variant="outlined" onClick={handleClickOpen} style={{
-                backgroundColor: add ? 'blue' : 'green',
+                backgroundColor: !editid ? 'blue' : 'green',
                 color: 'white',
                 border: 'none',
             }}>
-                {add ? <PersonAddIcon /> : <ModeEditIcon />}
+                {!editid ? <PersonAddIcon /> : <ModeEditIcon />}
             </Button>
             <Dialog open={open} onClose={handleClose}>
                 <ThemeProvider theme={defaultTheme}>
@@ -156,10 +162,10 @@ export default function Model({ editid, add, data }) {
                             }}
                         >
                             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                                {add ? <AddIcon /> : <ModeEditIcon />}
+                                {!editid ? <AddIcon /> : <ModeEditIcon />}
                             </Avatar>
                             <Typography component="h1" variant="h5">
-                                {add ? "Create User" : "Edit User"}
+                                {!editid ? "Create User" : "Edit User"}
                             </Typography>
                             <form onSubmit={handleSubmit(onSubmit)}>
                                 <Controller
@@ -281,7 +287,7 @@ export default function Model({ editid, add, data }) {
                                         sx={{ mt: 3, mb: 2 }}
 
                                     >
-                                        {add ? "Add User" : "Edit User"}
+                                        {!editid ? "Add User" : "Edit User"}
                                     </Button>
                                 </DialogActions>
 

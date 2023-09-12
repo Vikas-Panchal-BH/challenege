@@ -15,6 +15,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import AddIcon from '@mui/icons-material/Add';
 import {yupResolver} from "@hookform/resolvers/yup";
+import {toast} from "react-toastify";
 
 const schema = yup.object().shape({
     type: yup.string().required("Designation is required"),
@@ -41,16 +42,20 @@ export default function ModelType({ addType, id }) {
         reset();
     };
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         const addemp = {
-            id: Math.floor(Math.random() * 100000),
             type: data?.type
         }
         const editemp = {
             type: data?.type
         }
 
-        !addType ? typeUserService(addemp) : editTypeService(editemp, id)
+        const valid = !addType ? await typeUserService(addemp) : await editTypeService(editemp, id)
+        if (valid) {
+            toast.success(!addType ? "Type Added" :"Type Update")
+        } else {
+            toast.error("Error");
+        }
         handleClose()
     }
     useEffect(() => {
